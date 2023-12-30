@@ -19,48 +19,27 @@ public class SpriteAnimation : MonoBehaviour
     private float delayTime = 0f;
     private int spriteAnimationIndex = 0;
     private UnityAction action = null;
-    public bool isCanvas = false;
 
     private void Start()
     {
-        // isCanvas가 true일 때 이미지로
-        if (isCanvas)
-        {
-            image = GetComponent<Image>();
-        }
-        // 아닐 때는 SpriteRenderer로 
-        else
-        {
-            sr = GetComponent<SpriteRenderer>();
-        }
+        sr = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
         // sprite가 없을때 처리 되지 않음
         if (sprites.Count == 0)
-        {
             return;
-        }
+        
         // 프레임 간격 시간을 저장
         delayTime += Time.deltaTime;
-
         if (delayTime >= spriteDelayTime)
         {
             delayTime = 0;
 
-            // isCanvas가 true일때
-            if (isCanvas)
-            {
-                // 이미지 sprite 가  List안에 있는 sprites의 spriteAnimationIndex의 값으로 변경
-                image.sprite = sprites[spriteAnimationIndex];
-            }
-            else
-            {
-                //isCanvas가 false 일때 스프라이트랜더러로 들어옴
-                sr.sprite = sprites[spriteAnimationIndex];
-                spriteAnimationIndex++;
-            }
-              // sprite의 갯수를 넘어설때
+            sr.sprite = sprites[spriteAnimationIndex];
+            spriteAnimationIndex++;
+
+            // sprite의 갯수를 넘어설때
             if (spriteAnimationIndex >= sprites.Count)
             {
                 // action 가 없을 때
@@ -71,16 +50,22 @@ public class SpriteAnimation : MonoBehaviour
                 else
                 {
                     sprites.Clear();
-                    action();
-                    action = null;
+                    CancelInvoke();
+                    Invoke("ActionStart", spriteDelayTime);
+                    
                 }
             }
         }
     }
 
+    void ActionStart()
+    {
+        action();
+        action = null;
+    }
+
     void Init(List<Sprite> argSprites, float delayTime)
     {
-        // 0초에서 float 최대값
         this.delayTime = float.MaxValue;
         // 기존에 남아 있을 스프라이트를 완전 삭제
         sprites.Clear();
