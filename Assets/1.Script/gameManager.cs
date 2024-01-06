@@ -8,6 +8,19 @@ public class gameManager : MonoBehaviour
     //static은 어디서든 모든 클래스가 접근이 편하게 함
     public static gameManager Instance;
     public Player p;
+    private UI ui;
+    public UI UI
+    {
+        get
+        {
+            if (ui = null)
+            {
+                ui = FindObjectOfType<UI>();
+            }return ui;
+        }
+        set { }
+        
+    }
 
     // Update is called once per frame
     void Awake()
@@ -17,6 +30,7 @@ public class gameManager : MonoBehaviour
         {
             //this=자기 자신의 클래스, 를 넣음
             Instance = this;
+
         }
     }
 }

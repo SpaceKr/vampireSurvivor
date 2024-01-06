@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     private float bulletTimer;
-    private float bulletFireTime = 0.5f;
+    private float bulletFireTime = 0.2f;
     private PlayerState state = PlayerState.Stand;
     private int HP { get; set; } = 200;
     void Start()
@@ -114,5 +114,13 @@ public class Player : MonoBehaviour
     {
         HP -= damage;
         Debug.Log(HP);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Exp>())
+        {
+            Destroy(collision.gameObject);
+            
+        }
     }
 }

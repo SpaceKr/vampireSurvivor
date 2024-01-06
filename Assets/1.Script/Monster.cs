@@ -26,6 +26,7 @@ public class Monster : MonoBehaviour
     [SerializeField] private Sprite[] runSprite;
     [SerializeField] private Sprite[] hitSprite;
     [SerializeField] private Sprite[] deadSprite;
+    [SerializeField] private Exp exp;
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     public MonsterData data = new MonsterData();
@@ -91,7 +92,7 @@ public class Monster : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Bullet b = collision.GetComponent<Bullet>();
-        if (b != null & data.HP > 0)
+        if (b != null && data.HP > 0)
         {
             //데미지
             data.HP -= b.Power;
@@ -104,20 +105,27 @@ public class Monster : MonoBehaviour
                 sa.SetSprite(runSprite.ToList(), 0.2f);
                 data.Speed = 2f;
             });
-            
+            if (data.HP <= 0)
+            {
+                //죽는 애니메이션 처리
+                sa.SetSprite(deadSprite.ToList(), 0.2f);
+                CreateExp();
+                Destroy(gameObject, 0.2f);
+
+            }
+            if (collision.GetComponent<Bullet>())
+            {
+
+                Destroy(collision.gameObject);
+            }
+
+
+        }
         
-        }
-        if (data.HP <= 0)
-        {
-            //죽는 애니메이션 처리
-            sa.SetSprite(deadSprite.ToList(), 0.2f);
-            Destroy(gameObject, 0.2f);
-        }
-        if (collision.GetComponent<Bullet>())
-        {
-            
-            Destroy(collision.gameObject);
-        }
+    }
+    void CreateExp()
+    {
+        Instantiate(exp, transform.position, Quaternion.identity);
     }
     
 }
