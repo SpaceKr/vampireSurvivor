@@ -234,6 +234,7 @@ MonoBehaviour:
   - {fileID: -810896228, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   firePos: {fileID: 1635693212}
   bullet: {fileID: -9037947542573614411, guid: c36dd7805d3a5224d92a465b02f8cfee, type: 3}
+  power: 0
 --- !u!212 &220556038
 SpriteRenderer:
   m_ObjectHideFlags: 0

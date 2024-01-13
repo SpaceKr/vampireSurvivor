@@ -15,15 +15,21 @@ public class Exp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (P != null)
+        if(P == null)
+        {
+            P = gameManager.Instance.p;
+            return;
+        }
+
+        if (P != null)
         {
             transform.position = Vector3.Lerp(P.transform.position,transform.position, 1f);
             float distance=Vector3.Distance(P.transform.position, transform.position);
             if (distance <= 0.5f)
             {
-                gameManager.Instance.UI.Exp += 10;
+                gameManager.Instance.UI.Exp += 200;
                 Destroy(gameObject);
             }
-        }*/
+        }
     }
 }

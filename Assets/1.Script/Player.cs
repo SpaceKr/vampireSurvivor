@@ -12,12 +12,13 @@ public class Player : MonoBehaviour
         Dead
     }
     // Start is called before the first frame update
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [SerializeField] private Sprite[] standSprite;
     [SerializeField] private Sprite[] runSprite;
     [SerializeField] private Sprite[] deadSprite;
     [SerializeField] Transform firePos;
     [SerializeField] private Bullet bullet;
+    [SerializeField] public int power;
     private SpriteAnimation sa;
     private SpriteRenderer sr;
     private float bulletTimer;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private int HP { get; set; } = 200;
     void Start()
     {
+        power = 10;
         sa=GetComponent<SpriteAnimation>();
         sr=GetComponent<SpriteRenderer>();
     }
@@ -114,13 +116,5 @@ public class Player : MonoBehaviour
     {
         HP -= damage;
         Debug.Log(HP);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<Exp>())
-        {
-            Destroy(collision.gameObject);
-            
-        }
     }
 }

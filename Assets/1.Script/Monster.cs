@@ -110,6 +110,7 @@ public class Monster : MonoBehaviour
                 //죽는 애니메이션 처리
                 sa.SetSprite(deadSprite.ToList(), 0.2f);
                 CreateExp();
+                gameManager.Instance.UI.KillCount++; 
                 Destroy(gameObject, 0.2f);
 
             }

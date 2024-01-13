@@ -13,10 +13,11 @@ public class gameManager : MonoBehaviour
     {
         get
         {
-            if (ui = null)
+            if (ui == null)
             {
-                ui = FindObjectOfType<UI>();
-            }return ui;
+                ui = GameObject.Find("[UI]").GetComponent<UI>();
+            }
+            return ui;
         }
         set { }
         
@@ -30,7 +31,7 @@ public class gameManager : MonoBehaviour
         {
             //this=자기 자신의 클래스, 를 넣음
             Instance = this;
-
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

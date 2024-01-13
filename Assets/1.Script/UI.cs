@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     [SerializeField] private TMP_Text timeTxt;
     [SerializeField] private TMP_Text levelTxt;
     [SerializeField] private Image expImage;
+    [SerializeField] private GameObject lvPopUp;
     private int level;
     int maxExp = 1280;
     public int Level
@@ -61,6 +62,8 @@ public class UI : MonoBehaviour
                 expImage.rectTransform.sizeDelta = new Vector2(0, 44);
                 exp = 0;
                 maxExp += 100;
+                lvPopUp.SetActive(true);
+                Time.timeScale = 0;
             }
         }
     }
@@ -69,11 +72,24 @@ public class UI : MonoBehaviour
     {
         Level = 1;
         Exp = 0;
+        lvPopUp.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public void OnSpeedUp()
+    {
+        gameManager.Instance.p.speed += 1;
+        Time.timeScale = 1;
+        lvPopUp.SetActive(false);
+    }
+    public void OnAttackUp()
+    {
+        gameManager.Instance.p.power += 2;
+        Time.timeScale = 1;
+        lvPopUp.SetActive(false);
     }
 }
